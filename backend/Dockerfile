@@ -9,7 +9,6 @@ RUN ./gradlew dependencies
 
 # 소스 코드 복사 후 빌드
 COPY src/ ./src/
-COPY src/main/resources/application.yaml ./src/main/resources/application.yaml
 RUN ./gradlew build -x test
 
 # 🔹 2단계: 경량화된 실행 이미지
