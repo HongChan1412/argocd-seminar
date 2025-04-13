@@ -5,7 +5,7 @@ metadata:
   namespace: ns-seminar-spring-boot
 spec:
   revisionHistoryLimit: 1
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: spring-boot
@@ -38,7 +38,7 @@ spec:
                   key: postgresql_password
             # hibernate dll 설정
             - name: HIBERNATE_DDL_AUTO
-              value: "create"
+              value: "update"
           resources:
             limits:
               cpu: "1"
