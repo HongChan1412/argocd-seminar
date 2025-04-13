@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-deployment
+  namespace: ns-seminar-spring-boot
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+    spec:
+      containers:
+        - name: spring-boot
+          image: nahongc/spring-boot-seminar:7433cd1
+          ports:
+            - containerPort: 8080
+          env:
+            # postgresql 연결 정보
+            - name: POSTGRESQL_URL
+              value: "jdbc:postgresql://postgresql-service.ns-seminar-postgresql.svc.cluster.local:5432/${POSTGRES_DB}"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: spring-boot-secrets
+                  key: postgresql_dbname
+            - name: POSTGRESQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: spring-boot-secrets
+                  key: postgresql_username
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: spring-boot-secrets
+                  key: postgresql_password
+            # hibernate dll 설정
+            - name: HIBERNATE_DDL_AUTO
+              value: "create"
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"
