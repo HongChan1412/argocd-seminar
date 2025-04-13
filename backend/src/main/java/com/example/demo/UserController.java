@@ -15,12 +15,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> findAll() {
+    public List<Users> findAll() {
         return userRepository.findAll();
     }
 
     @PostMapping
-    public User save(@RequestBody User user) {
-        return userRepository.save(user);
+    public Users save(@RequestBody Users users) {
+        return userRepository.save(users);
     }
 }
