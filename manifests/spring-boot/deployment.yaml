@@ -22,12 +22,10 @@ spec:
           env:
             # postgresql 연결 정보
             - name: POSTGRESQL_URL
-              value: "jdbc:postgresql://postgresql-service.ns-seminar-postgresql.svc.cluster.local:5432/${POSTGRES_DB}"
-            - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: spring-boot-secrets
-                  key: postgresql_dbname
+                  key: postgresql_url
             - name: POSTGRESQL_USERNAME
               valueFrom:
                 secretKeyRef:
