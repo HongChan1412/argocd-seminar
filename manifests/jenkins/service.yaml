@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins
-  namespace: jenkins
+  namespace: ns-seminar-jenkins
 spec:
   type: NodePort
   selector:
