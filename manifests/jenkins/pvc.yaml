@@ -9,3 +9,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
+  volumeName: jenkins-pv   # PV와 직접 바인딩
