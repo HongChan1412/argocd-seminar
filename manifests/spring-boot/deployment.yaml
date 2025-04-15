@@ -5,7 +5,7 @@ metadata:
   namespace: ns-seminar-spring-boot
 spec:
   revisionHistoryLimit: 1
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: spring-boot
