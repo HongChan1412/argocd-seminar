@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seminar-postgresql
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-running.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-deleted.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-created.slack: "argocd-alert"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/HongChan1412/argocd-seminar.git
+    path: manifests/postgresql
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ns-seminar-postgresql
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
