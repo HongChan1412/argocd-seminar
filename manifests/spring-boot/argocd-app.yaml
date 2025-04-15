@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seminar-spring-boot
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "slack"
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: "slack"
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: "slack"
+    notifications.argoproj.io/subscribe.on-sync-running.slack: "slack"
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: "slack"
+    notifications.argoproj.io/subscribe.on-deleted.slack: "slack"
+    notifications.argoproj.io/subscribe.on-created.slack: "slack"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/HongChan1412/argocd-seminar.git
+    path: manifests/spring-boot
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ns-seminar-spring-boot
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
