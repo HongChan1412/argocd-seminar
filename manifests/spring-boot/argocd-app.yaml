@@ -4,13 +4,13 @@ metadata:
   name: seminar-spring-boot
   namespace: argocd
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "slack"
-    notifications.argoproj.io/subscribe.on-sync-failed.slack: "slack"
-    notifications.argoproj.io/subscribe.on-health-degraded.slack: "slack"
-    notifications.argoproj.io/subscribe.on-sync-running.slack: "slack"
-    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: "slack"
-    notifications.argoproj.io/subscribe.on-deleted.slack: "slack"
-    notifications.argoproj.io/subscribe.on-created.slack: "slack"
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-running.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-deleted.slack: "argocd-alert"
+    notifications.argoproj.io/subscribe.on-created.slack: "argocd-alert"
 spec:
   project: default
   source:
