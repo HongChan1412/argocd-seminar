@@ -47,3 +47,22 @@ jobs:
           git add manifests/spring-boot/deployment.yaml
           git commit -m "🔖 update image tag to ${{ env.SHORT_SHA }}"
           git push
+
+      - name: Trigger ArgoCD Sync
+        env:
+          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+          ARGOCD_APP: seminar-spring-boot
+          ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME}}
+          ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq curl
+
+          echo "📥 Requesting ArgoCD token..."
+          TOKEN=$(curl -s -k -X POST $ARGOCD_SERVER/api/v1/session \
+            -H "Content-Type: application/json" \
+            -d "{\"username\":\"$ARGOCD_USERNAME\",\"password\":\"$ARGOCD_PASSWORD\"}" | jq -r '.token')
+
+          echo "🚀 Triggering ArgoCD sync for app: $ARGOCD_APP"
+          curl -s -k -X POST $ARGOCD_SERVER/api/v1/applications/$ARGOCD_APP/sync \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json"
