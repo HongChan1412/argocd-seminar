@@ -3,16 +3,16 @@ FROM gradle:8.1.1-jdk17 AS build
 WORKDIR /app
 
 # Gradle 캐시 최적화
-COPY build.gradle settings.gradle gradlew ./
+COPY settings.gradle.kts build.gradle.kts gradlew ./
 COPY gradle/ ./gradle/
-RUN ./gradlew dependencies
+RUN ./gradlew --no-daemon build -x test || true
 
 # 소스 코드 복사 후 빌드
 COPY src/ ./src/
-RUN ./gradlew build -x test
+RUN ./gradlew --no-daemon build -x test --build-cache
 
 # 🔹 2단계: 경량화된 실행 이미지
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 COPY --from=build /app/build/libs/*.jar app.jar
