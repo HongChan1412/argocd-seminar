@@ -3,7 +3,7 @@ FROM gradle:8.1.1-jdk17 AS build
 WORKDIR /app
 
 # Gradle 캐시 최적화
-COPY settings.gradle.kts build.gradle.kts gradlew ./
+COPY settings.gradle build.gradle gradlew ./
 COPY gradle/ ./gradle/
 RUN ./gradlew --no-daemon build -x test || true
 
