@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: spring-boot
-          image: nahongc/spring-boot-seminar:b257de4
+          image: nahongc/spring-boot-seminar:311cea3
           ports:
             - containerPort: 8080
           env:
