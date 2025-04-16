@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Gradle
+.gradle
+**/build
+**/out
+
+# IDE 설정
+.idea
+*.iml
+.vscode
+
+# 테스트/로컬 환경 파일
+*.log
+*.tmp
+*.swp
+.env
+.env.*
+
+# OS/Editor별 파일
+.DS_Store
+Thumbs.db
+
+# README나 문서
+README.md
+LICENSE
+docs/
